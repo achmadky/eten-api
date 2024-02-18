@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1",
+    "name": "egg",
+    "calories": 72,
+    "cholesterol": 186
+  },
+  {
+    "id": "2",
+    "name": "apple",
+    "calories": 95,
+    "cholesterol": 0
+  }
+]
