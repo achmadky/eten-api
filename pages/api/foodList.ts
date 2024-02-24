@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import cors from "cors";
-import foodData from "../../public/foodData/data.json";
+import foodData from "../../public/foodData/datac.json";
 
 // Define types
 type Food = {
-  id: string;
+  id: number;
   name: string;
   calories: number;
   cholesterol: number;
