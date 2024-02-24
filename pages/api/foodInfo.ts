@@ -1,33 +1,55 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 import foodData from '../../public/foodData/data.json';
 import cors from 'cors';
 
-export type Food = {
+// Define types
+type Food = {
   id: string;
   name: string;
   calories: number;
   cholesterol: number;
 };
 
-export type ApiResponse = {
+type ApiResponse = {
   food: Food | undefined;
 };
 
-const corsHandler = cors({
-  origin: 'http://localhost:3001', // Allow requests from this origin
+// CORS options
+const corsOptions = {
+  origin: 'http://localhost:3001',
   methods: ['GET'],
   allowedHeaders: ['Content-Type'],
-});
+};
 
+// Initialize CORS middleware
+const corsHandler = cors(corsOptions);
+
+// Function to find food by name
+function findFoodByName(name: string): Food | undefined {
+  const lowerCaseName = name.toLowerCase();
+  return foodData.find(item => item.name.toLowerCase() === lowerCaseName);
+}
+
+// API handler function
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ApiResponse>) {
+  // CORS handling
   await new Promise((resolve) => corsHandler(req, res, resolve));
 
+  // Handle GET request
   if (req.method === 'GET') {
     const { name } = req.query;
-    const food = foodData.find((item) => typeof name === 'string' && item.name.toLowerCase() === name?.toLowerCase());
+    if (typeof name !== 'string') {
+      return res.status(400).json({ food: undefined }); // Bad request if name is not provided or not a string
+    }
 
-    res.status(200).json({ food });
+    const food = findFoodByName(name);
+    if (!food) {
+      return res.status(404).json({ food: undefined }); // Not found if food not found
+    }
+
+    return res.status(200).json({ food });
   } else {
-    res.status(405).json({ food: undefined });
+    // Handle other HTTP methods
+    return res.status(405).json({ food: undefined });
   }
 }
