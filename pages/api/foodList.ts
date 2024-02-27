@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import foodData from '../../public/foodData/datac.json';
 import cors from 'cors';
-import NextCors from 'nextjs-cors';
 
 
 // Define types
@@ -26,7 +25,7 @@ export default async function handler(
   res: NextApiResponse<string[]>
 ) {
   // Enable CORS
-  NextCors(req, res, ()=> {
+  corsMiddleWare(req, res, ()=> {
     // Use foodData directly, no need to require it again
   const foodNames = foodData.map((food: Food) => food.name);
   res.status(200).json(foodNames);

@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Cors from "cors";
 import foodData from "../../public/foodData/datac.json";
-import NextCors from "nextjs-cors";
 
 // Define types
 type Food = {
@@ -33,7 +32,7 @@ export default async function handler(
 ) {
   // CORS handling
   return new Promise((resolve, reject) => {
-    NextCors(req, res, (result) => {
+    corsMiddleware(req, res, (result) => {
       if (result instanceof Error) {
         return reject(result);
       }
