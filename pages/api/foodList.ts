@@ -12,7 +12,7 @@ type Food = {
 
 // CORS options
 const corsOptions = {
-  origin: ["http://localhost:3001", "http://eten-ui.vercel.app"]
+  origin: ["http://localhost:3001", "https://eten-ui.vercel.app"]
 };
 
 // Initialize CORS middleware

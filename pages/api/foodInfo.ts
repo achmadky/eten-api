@@ -16,7 +16,7 @@ type ApiResponse = {
 
 // CORS options
 const corsOptions = {
-  origin: 'http://localhost:3001',
+  origin: ['http://localhost:3001', 'https://eten-ui.vercel.app'],
   methods: ['GET'],
   allowedHeaders: ['Content-Type'],
 };
