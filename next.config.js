@@ -4,7 +4,7 @@ const nextConfig = {
     async headers() {
         return [
             {
-                source: "/api/foodList",
+                source: "/pages/api/foodList",
                 headers: [
                     { key: "Access-Control-Allow-Credentials", value: "false" },
                     { key: "Access-Control-Allow-Origin", value: "https://eten-ui.vercel.app" },
