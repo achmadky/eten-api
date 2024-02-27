@@ -12,7 +12,7 @@ type Food = {
 
 // CORS options
 const corsOptions = {
-  origin: "http://localhost:3001",
+  origin: ["http://localhost:3001", "http://eten-ui.vercel.app"]
 };
 
 // Initialize CORS middleware
@@ -24,9 +24,12 @@ export default async function handler(
   res: NextApiResponse<string[]>
 ) {
   // Invoke CORS middleware
-  corsMiddleware(req, res, () => {
-    // Use foodData directly, no need to require it again
-    const foodNames = foodData.map((food: Food) => food.name);
-    res.status(200).json(foodNames);
+  await new Promise((resolve) => {
+    corsMiddleware(req, res, () => {
+      // Use foodData directly, no need to require it again
+      const foodNames = foodData.map((food: Food) => food.name);
+      res.status(200).json(foodNames);
+      resolve(null);
+    });
   });
 }
