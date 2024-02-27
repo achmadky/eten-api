@@ -3,7 +3,7 @@ module.exports = {
         return [
           {
             source: '/api/:path*',
-            destination: 'https://api.example.com/:path*',
+            destination: 'https://eten-api.vercel.app/pages/path*',
           },
         ]
       },
